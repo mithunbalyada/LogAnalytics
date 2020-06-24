@@ -7,3 +7,12 @@
 2016-09-20 16:23:14,994 ERROR Some error message
 2016-09-20 16:23:16,994 ERROR Some error message lates
 2016-09-20 16:23:19,994 ERROR Some error message latesst 19
+2020-06-23 11:23:19,994 WARNING Some error message latesst 23
+2020-06-23 11:24:19,994 ERROR Some error message latesst 24
+2020-06-23 11:25:19,994 INFO Some error message latesst 25
+2020-06-23 13:25:19,994 INFO Some error message latesst 212
+2020-06-23 13:26:19,994 INFO Some error message latesst 21e
+2020-06-23 13:26:32,994 INFO Some error message latesst 21e
+2020-06-23 13:26:42,994 INFO Some error message latesst 21e
+2020-07-23 00:26:32,994 INFO Some error message latesst 21e
+2020-07-23 00:26:33,994 ERROR Some error message latesst 21e2020-07-23 00:28:33,994 ERROR Test error message

@@ -42,4 +42,13 @@ public class LogInfo {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "LogInfo{" +
+                "uuid='" + uuid + '\'' +
+                ", level='" + level + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                '}';
+    }
 }

@@ -1,0 +1,46 @@
+.sidenav {
+	color: #cfdbd5;
+	position: fixed;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	width: 150px;
+	height: 100vh;
+	background-color: black;
+	opacity: 0.9;
+	overflow: hidden;
+	transition: 0.5s;
+}
+
+.sidenavNav {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	margin-top: 50px;
+	width: 150px;
+	height: 100%;
+}
+
+.sidenavNavlink {
+	margin: 0 10px;
+	padding: 20px 0;
+	border-bottom: 0.25px solid #111;
+	color: #ffffff;
+}
+
+.sidenavNavlink:hover {
+	color: #f5cb5c;
+}
+
+.sidenavClose {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	cursor: pointer;
+	color: #888;
+}
+
+.sidenavActive {
+	color: #f5cb5c;
+	text-decoration: underline;
+}
