@@ -4,3 +4,5 @@
 **/.gradle/*
 **/.DS_Store
 **/node_modules/*
+elasticsearch/data/*
+filebeat/data/*

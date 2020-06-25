@@ -8,6 +8,8 @@ services:
       - "discovery.type=single-node"
     volumes:
       - ./elasticsearch/data:/usr/share/elasticsearch/data:rw
+    networks:
+      - backend
 
   logstash:
     image: docker.elastic.co/logstash/logstash:7.2.0
@@ -21,16 +23,8 @@ services:
     restart: on-failure
     depends_on:
       - elasticsearch
-
-  #kibana:
-  #  image: docker.elastic.co/kibana/kibana:7.2.0
-  #  links:
-  #    - elasticsearch
-  #  ports:
-  #    - "5601:5601"
-  #  restart: on-failure
-  #  depends_on:
-  #    - elasticsearch
+    networks:
+      - backend
 
   filebeat:
     image: docker.elastic.co/beats/filebeat:7.2.0
@@ -42,3 +36,39 @@ services:
       - ./logs:/tmp:rw
     depends_on:
       - logstash
+    networks:
+      - backend
+
+  loganalyticsservice:
+    build: ./LogAnalyticsService
+    links:
+      - elasticsearch
+    ports:
+      - "8080:8080"
+    environment:
+      - ELASTIC_SEARCH_HOST=elasticsearch
+      - ELASTIC_SEARCH_PORT=9200
+    restart: on-failure
+    depends_on:
+      - elasticsearch
+    networks:
+      - backend
+      - frontend
+
+  loganalyticsui:
+    build:
+      context: ./log-analytics-dashboard
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_BASE_URL: http://127.0.0.1:8080
+    ports:
+      - "3000:80"
+    restart: on-failure
+    depends_on:
+      - loganalyticsservice
+    networks:
+      - frontend
+
+networks:
+  backend:
+  frontend:
