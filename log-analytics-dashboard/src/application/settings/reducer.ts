@@ -1,17 +1,17 @@
 import { SettingsStateType, SettingsActions, SettingsActionType } from './types'
 
 const getRefreshIntervalFromEnv = () => {
-  const refreshIntervalInSecondsEnvVal = process.env.DASHBOARD_REFRESH_INTERVAL
+  const refreshIntervalInSecondsEnvVal = process.env.REACT_APP_DASHBOARD_REFRESH_INTERVAL
   return typeof refreshIntervalInSecondsEnvVal !== undefined && !isNaN(refreshIntervalInSecondsEnvVal as any)
     ? Number(refreshIntervalInSecondsEnvVal)
-    : 5
+    : 10
 }
 
 const getMonitorIntervalFromEnv = () => {
-  const monitorIntervalInSecondsEnvVal = process.env.DASHBOARD_REFRESH_INTERVAL
+  const monitorIntervalInSecondsEnvVal = process.env.REACT_APP_DASHBOARD_MONITOR_INTERVAL
   return typeof monitorIntervalInSecondsEnvVal !== undefined && !isNaN(monitorIntervalInSecondsEnvVal as any)
     ? Number(monitorIntervalInSecondsEnvVal)
-    : 5
+    : 10
 }
 
 const initialSettingsState: SettingsStateType = {

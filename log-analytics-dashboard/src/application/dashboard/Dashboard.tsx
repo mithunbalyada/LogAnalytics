@@ -8,7 +8,7 @@ export const Dashboard = () => {
   return (
     <Layout>
       <Segment>
-        <Grid columns={2} divided>
+        <Grid stackable columns={2} divided>
           <Grid.Row>
             <Grid.Column>
               <LogWidget />

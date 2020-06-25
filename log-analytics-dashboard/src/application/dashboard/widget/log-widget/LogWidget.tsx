@@ -6,22 +6,26 @@ import axios from '../../../../axios'
 import { LogStatisticWidget } from '../../../view/widget/LogStatisticWidget'
 
 export const LogWidget = () => {
-  const refreshInterval = useSelector((state: StateType) => state.settings.refreshIntervalInSeconds)
+  const { refreshIntervalInSeconds, monitorIntervalInSeconds } = useSelector((state: StateType) => state.settings)
   const [logInfoData, setLogInfoData] = useState<LogInfoType>()
 
-  const loadData = async () => {
+  const loadData = async (seconds: number) => {
     console.log('fetch /logStatus')
-    const response = axios.get('/logStatus')
+    const response = axios.get('/api/v1/logStatusByTime?interval=' + monitorIntervalInSeconds)
     setLogInfoData((await response).data)
   }
 
   useEffect(() => {
-    loadData()
+    loadData(monitorIntervalInSeconds)
     const interval = setInterval(() => {
-      loadData()
-    }, refreshInterval * 1000)
+      loadData(monitorIntervalInSeconds)
+    }, refreshIntervalInSeconds * 1000)
     return () => clearInterval(interval)
-  }, []) //eslint-disable-line
+  }, [refreshIntervalInSeconds, monitorIntervalInSeconds]) // eslint-disable-line
 
-  return <>{logInfoData ? <LogStatisticWidget refreshInterval={refreshInterval} logInfoData={logInfoData} /> : ''}</>
+  return (
+    <>
+      {logInfoData ? <LogStatisticWidget refreshInterval={refreshIntervalInSeconds} logInfoData={logInfoData} /> : ''}
+    </>
+  )
 }

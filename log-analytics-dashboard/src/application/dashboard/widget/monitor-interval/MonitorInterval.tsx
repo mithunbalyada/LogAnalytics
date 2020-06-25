@@ -15,6 +15,7 @@ export const MonitorInterval = () => {
   const onSubmit = (updatedValue: number) => {
     if (updatedValue !== monitorIntervalInSeconds) {
       updateMonitorInterval(updatedValue)
+      alert('Monitor interval updated to ' + updatedValue + ' seconds')
     }
   }
 

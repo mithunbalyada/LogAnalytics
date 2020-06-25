@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './sidebar.module.css'
 import { NavLink } from 'react-router-dom'
 
-type SidebarProps = {
+export type SidebarProps = {
   sideBarOpen: boolean
   closeSideNav: (e: React.SyntheticEvent) => void
 }
@@ -26,5 +26,5 @@ export const Sidebar = (props: SidebarProps) => {
     )
   }
 
-  return <> </>
+  return <></>
 }

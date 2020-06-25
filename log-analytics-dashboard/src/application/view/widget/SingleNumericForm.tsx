@@ -20,7 +20,6 @@ export const SingleNumericForm = (props: SingleNumericFormProps) => {
    * @param e : React Change Event from Input Element
    */
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
     const re = /^[0-9\b]+$/
 
     if (e.target.value === '' || re.test(e.target.value)) {
@@ -37,7 +36,7 @@ export const SingleNumericForm = (props: SingleNumericFormProps) => {
       <Form>
         <Form.Field inline>
           <label>{props.label}</label>
-          <input pattern="[0-9]*" onChange={onChange} value={inputVal} style={{ width: '370px' }} />
+          <input pattern="[0-9]*" onChange={onChange} value={inputVal} />
           <Button style={{ margin: '0 10px' }} onClick={onSubmit}>
             Save
           </Button>
