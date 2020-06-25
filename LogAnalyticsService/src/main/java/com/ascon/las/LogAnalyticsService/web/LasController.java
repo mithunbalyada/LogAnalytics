@@ -23,7 +23,7 @@ public interface LasController {
     @CrossOrigin
     @GetMapping(value = "/logStatusByDay")
     @ApiOperation(value = "Get log status by interval in days from the current system date time.", produces = "application/json", response = String.class)
-    @ApiParam(name = "day", value = "No of days from current date for which the logger metrics are needed.")
-    public ResponseEntity<String> getLogStatusByDay(@RequestParam("days") String interval);
+    @ApiParam(name = "days", value = "No of days from current date for which the logger metrics are needed.")
+    public ResponseEntity<String> getLogStatusByDay(@RequestParam("days") String days);
 
 }

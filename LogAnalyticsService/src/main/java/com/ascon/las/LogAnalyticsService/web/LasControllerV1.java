@@ -5,10 +5,7 @@ import com.ascon.las.LogAnalyticsService.service.LasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -17,6 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class LasControllerV1 implements LasController{
 
     private final LasService lasService;
+
+    private enum IntervalType{
+        TIME,
+        DAYS
+    }
 
     @Autowired
     public LasControllerV1(final LasService lasService){
@@ -27,25 +29,43 @@ public class LasControllerV1 implements LasController{
     @Override
     public ResponseEntity<String> getStatus()
     {
-        return ResponseEntity.ok("it works");
+        return ResponseEntity.ok("It works");
     }
 
 
     @Override
-    public ResponseEntity<String> getLogStatusByDay(@RequestParam("interval") String interval)
+    public ResponseEntity<String> getLogStatusByDay(String days)
     {
+        return getLogStatus(days, IntervalType.DAYS);
+    }
+
+    @Override
+    public ResponseEntity<String> getLogStatusByTime(String interval) {
+        return getLogStatus(interval, IntervalType.TIME);
+    }
+
+
+
+    private ResponseEntity<String> getLogStatus(String interval, IntervalType intervalType){
+
         HttpStatus status;
         String message;
         try {
             int intervalInteger = Integer.parseInt(interval);
-            String result = lasService.getAllLogStatus(intervalInteger);
+
+            String result;
+
+            if (intervalType == IntervalType.DAYS)
+                result = lasService.getAllLogStatusByDays(intervalInteger);
+            else
+                result = lasService.getAllLogStatusByTime(intervalInteger);
 
             if(result != null){
                 return ResponseEntity.ok(result);
-            }else{
-                status = HttpStatus.NO_CONTENT;
-                message = "No data found";
             }
+            status = HttpStatus.NO_CONTENT;
+            message = "No data found";
+
         } catch (NumberFormatException e) {
             status = HttpStatus.BAD_REQUEST;
             message = "Unable to parse 'interval' into seconds";
@@ -57,8 +77,5 @@ public class LasControllerV1 implements LasController{
         return new ResponseEntity<>(message, status);
     }
 
-    @Override
-    public ResponseEntity<String> getLogStatusByTime(String interval) {
-        return null;
-    }
+
 }

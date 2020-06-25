@@ -36,7 +36,7 @@ public class LasService {
      */
     public String getAllLogStatusByDays(int days) throws LasException {
         LOGGER.info("findByDateRange - looks logs for interval in days {}", days);
-        return getStringOutputFromStreams(logRepository.findDateRangeByNowByDays(1));
+        return groupByLevelAndGetJsonString(logRepository.findDateRangeByNowByDays(1));
     }
 
     /**
@@ -48,12 +48,12 @@ public class LasService {
      */
     public String getAllLogStatusByTime(int seconds) throws LasException {
         LOGGER.info("findByDateRange - looks logs for interval in seconds {}", seconds);
-        return getStringOutputFromStreams(logRepository.findByDateRangeByNowBySeconds(seconds));
+        return groupByLevelAndGetJsonString(logRepository.findByDateRangeByNowBySeconds(seconds));
     }
 
 
 
-    private String getStringOutputFromStreams(List<LogInfo> logInfoList) throws LasException{
+    private String groupByLevelAndGetJsonString(List<LogInfo> logInfoList) throws LasException{
         try {
             Map<String, Long> groupBy = logInfoList.stream()
                     .map(LogInfo::getLevel)
